@@ -1,3 +1,6 @@
+.DEFAULT_GOAL := help
+.PHONY: help
+
 OS = $(shell uname)
 
 # COLORS
@@ -9,11 +12,20 @@ RESET = $(shell printf "\33[0m")
 
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 #
+#  HELP
+#
+#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+help: ## Shows what you are seeing now
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
+#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+#
 #  DEVELOPMENT
 #
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-development_setup:
+development_setup: ## Installs development dependencies
 	@echo "${YELLO}Setup development environment...${RESET}"
 	@pip install -r requirements/dev.txt
 	@echo "${GREEN}✔ setup finished successfully${RESET}\n"
@@ -24,8 +36,29 @@ development_setup:
 #
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-test:
+test: ## Runs unit tests
 	@echo "${YELLOW}Running all tests${RESET}\n"
 	@coverage run --source typetalk -m py.test --pep8
 	@coverage report
 	@echo "${GREEN}✔ well done!${RESET}\n"
+
+#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+#
+#  PUBLISH
+#
+#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+build_prepare: ## Installs dependencies for publish package
+	@echo "${YELLOW}Preparing for build...${RESET}"
+	@python -m pip install --user --upgrade setuptools wheel twine
+	@echo "${GREEN}✔ setup finished successfully${RESET}\n"
+
+build: ## Build package
+	@echo "${YELLOW}Building...${RESET}"
+	@python setup.py sdist bdist_wheel
+	@echo "${GREEN}✔ successfully built${RESET}\n"
+
+upload: ## Publish package
+	@echo "${YELLOW}Uploading...${RESET}"
+	@twine upload dist/*
+	@echo "${GREEN}✔ successfully uploaded${RESET}\n"
