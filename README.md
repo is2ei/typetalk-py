@@ -1,6 +1,7 @@
 typetalk-py
 ===
 
+[![PyPI version](https://img.shields.io/pypi/pyversions/typetalk-py.svg)](https://pypi.python.org/pypi/typetalk-py)
 [![Build Status](https://travis-ci.com/is2ei/typetalk-py.svg?branch=master)](https://travis-ci.com/is2ei/typetalk-py)
 [![Coverage Status](https://coveralls.io/repos/github/is2ei/typetalk-py/badge.svg?branch=master)](https://coveralls.io/github/is2ei/typetalk-py?branch=master)
 
