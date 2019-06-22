@@ -7,6 +7,25 @@ typetalk-py
 
 Typetalk API client written in Python
 
+Usage
+---
+
+#### Posting a message to Typetalk using Typetalk token (bot)
+
+```python
+import os
+import typetalk
+
+client = typetalk.Client(token=os.environ['TYPETALK_TOKEN'])
+
+response = client.post_message(
+    topic='12345'
+    message="Hello, world!")
+)
+assert response["ok"]
+assert response["post"]["message"] == "Hello world!"
+```
+
 Links
 ---
 
