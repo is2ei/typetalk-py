@@ -44,15 +44,3 @@ class HTTPClient:
         async with self.__session.request(method, url, **kwargs) as r:
             data = await json_or_text(r)
             return data
-
-    def post_message(self, topic_id, message):
-        r = Route('POST', '/api/v1/topics/{topic_id}', topic_id=topic_id)
-        payload = {}
-
-        if message:
-            payload['message'] = message
-        else:
-            # TODO: throw error
-            pass
-
-        return self.request(r, json=payload)
