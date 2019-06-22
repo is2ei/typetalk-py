@@ -1,8 +1,14 @@
 # Standard Imports
+import asyncio
 import json
+import weakref
 
 # ThirdParty Imports
 import aiohttp
+
+
+def to_json(obj):
+    return json.dumps(obj, separators=(',', ':'), ensure_ascii=True)
 
 async def json_or_text(response):
     text = await response.text(encoding='utf-8')
@@ -23,24 +29,42 @@ class Route:
 class HTTPClient:
     """Represents an HTTP client sending HTTP requests to the Typetalk API."""
 
-    def init(self):
+    def init(self, loop=None):
+        self.loop = asyncio.get_event_loop() if loop is None else loop
         self.__session = None  # filled in static_login
+        self._locks = weakref.WeakValueDictionary()
         self.token = None
         self.is_bot = False
 
+        self.user_agent = 'typetalk-py'
+
     async def request(self, route, **kwargs):
+        bucket = route.bucket
         method = route.method
         url = route.url
 
-        headers = {}
+        lock = self._locks.get(bucket)
+        if lock is None:
+            lock = asyncio.Lock(loop=self.loop)
+            if bucket is not None:
+                self._locks[bucket] = lock
+
+        headers = {
+            'User-Agent': self.user_agent,
+        }
 
         if self.is_bot:
             headers['X-Typetalk-Token'] = self.token
         else:
             headers['Authorization'] = "Bearer {}".format(self.token)
 
+        if 'json' in kwargs:
+            headers['Content-Type'] = 'application/json'
+            kwargs['data'] = to_json(kwargs.pop('json'))
+
         kwargs['headers'] = headers
 
+        await lock.acquire()
         async with self.__session.request(method, url, **kwargs) as r:
             data = await json_or_text(r)
             return data
