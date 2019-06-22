@@ -56,6 +56,7 @@ build_prepare: ## Installs dependencies for publish package
 
 build: ## Build package
 	@echo "${YELLOW}Building...${RESET}"
+	@rm -rf dist/*
 	@python setup.py sdist bdist_wheel
 	@echo "${GREEN}✔ successfully built${RESET}\n"
 
