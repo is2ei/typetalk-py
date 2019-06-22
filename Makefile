@@ -50,6 +50,7 @@ test: ## Runs unit tests
 
 build_prepare: ## Installs dependencies for publish package
 	@echo "${YELLOW}Preparing for build...${RESET}"
+	@pip install -r requirements/prod.txt
 	@python -m pip install --user --upgrade setuptools wheel twine
 	@echo "${GREEN}✔ setup finished successfully${RESET}\n"
 
