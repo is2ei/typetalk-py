@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := help
-.PHONY: help
+.PHONY: build
 
 OS = $(shell uname)
 
