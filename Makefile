@@ -59,7 +59,7 @@ build: ## Build package
 	@python setup.py sdist bdist_wheel
 	@echo "${GREEN}✔ successfully built${RESET}\n"
 
-upload: ## Publish package
+publish: ## Publish package
 	@echo "${YELLOW}Uploading...${RESET}"
 	@twine upload dist/*
-	@echo "${GREEN}✔ successfully uploaded${RESET}\n"
+	@echo "${GREEN}✔ successfully published${RESET}\n"
