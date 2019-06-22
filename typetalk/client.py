@@ -4,7 +4,7 @@ from .http import Route, HTTPClient
 
 
 class Client:
-    def __init__(self, token):
+    def __init__(self):
         self.http = HTTPClient()
 
     def post_message(self, topic_id, message):

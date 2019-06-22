@@ -4,5 +4,5 @@ from .client import Client
 
 
 class Bot(Client):
-    def __init__(self):
+    def __init__(self, token):
         self.is_bot = True
