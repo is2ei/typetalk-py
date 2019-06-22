@@ -19,7 +19,7 @@ import typetalk
 bot = typetalk.bot(token=os.environ['TYPETALK_TOKEN'])
 
 response = bot.post_message(
-    topic_id='12345'
+    topic_id='12345',
     message="Hello, world!")
 )
 assert response["ok"]
