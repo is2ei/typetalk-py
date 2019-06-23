@@ -25,7 +25,13 @@ async def json_or_text(response):
 class HTTPClient:
     """Represents an HTTP client sending HTTP requests to the Typetalk API."""
 
-    def __init__(self, loop=None, token=None, run_async=False, is_bot=False):
+    def __init__(
+        self,
+        loop=None,
+        token=None,
+        run_async=False,
+        is_bot=False,
+    ):
         self.loop = None
         self.__session = None  # filled in static_login
         self._locks = weakref.WeakValueDictionary()
