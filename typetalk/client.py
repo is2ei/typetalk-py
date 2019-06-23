@@ -4,8 +4,8 @@ from .http import Route, HTTPClient
 
 
 class Client:
-    def __init__(self):
-        self.http = HTTPClient()
+    def __init__(self, token=None):
+        self.http = HTTPClient(token=token)
 
     def post_message(self, topic_id, message):
         r = Route('POST', '/api/v1/topics/{topic_id}', topic_id=topic_id)

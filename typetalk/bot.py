@@ -4,6 +4,8 @@ from .client import Client
 
 
 class Bot(Client):
-    def __init__(self, token):
-        super().__init__()
+    """Represents a Typetalk bot"""
+
+    def __init__(self, token=None):
+        super().__init__(token=token)
         self.is_bot = True

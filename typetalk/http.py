@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # Standard Imports
 import asyncio
 import json
@@ -25,15 +27,14 @@ class Route:
         self.path = path
         url = '{}{}'.format(self.BASE, self.path)
 
-
 class HTTPClient:
     """Represents an HTTP client sending HTTP requests to the Typetalk API."""
 
-    def init(self, loop=None):
+    def __init__(self, loop=None, token=None):
         self.loop = asyncio.get_event_loop() if loop is None else loop
         self.__session = None  # filled in static_login
         self._locks = weakref.WeakValueDictionary()
-        self.token = None
+        self.token = token
         self.is_bot = False
 
         self.user_agent = 'typetalk-py'
@@ -53,10 +54,11 @@ class HTTPClient:
             'User-Agent': self.user_agent,
         }
 
-        if self.is_bot:
-            headers['X-Typetalk-Token'] = self.token
-        else:
-            headers['Authorization'] = "Bearer {}".format(self.token)
+        if token is not None:
+            if self.is_bot:
+                headers['X-Typetalk-Token'] = self.token
+            else:
+                headers['Authorization'] = "Bearer {}".format(self.token)
 
         if 'json' in kwargs:
             headers['Content-Type'] = 'application/json'
