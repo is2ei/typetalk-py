@@ -8,14 +8,27 @@ from .http import Route, HTTPClient
 
 
 class Client:
-    def __init__(self, loop=None, token=None, run_async=False, is_bot=False):
+    """Base class for User or Bot"""
+
+    def __init__(
+        self,
+        token=None,
+        run_async=False,
+        is_bot=False,
+    ):
+
+        if run_async:
+            loop = asyncio.get_event_loop()
+        else:
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+
         self.http = HTTPClient(
             loop=loop,
             token=token,
             run_async=run_async,
             is_bot=is_bot
         )
-        self.http.loop = asyncio.get_event_loop()
 
     def post_message(self, topic_id, message):
         r = Route(
@@ -33,7 +46,6 @@ class Client:
         if self.run_async:
             return self.http.request(r, json=payload)
 
-        self.http.loop = asyncio.get_event_loop()
         return self.http.loop.run_until_complete(
             self.http.request(
                 r,
