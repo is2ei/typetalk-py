@@ -17,7 +17,10 @@ class Client:
         self.http.loop = asyncio.get_event_loop()
 
     def post_message(self, topic_id, message):
-        r = Route('POST', '/api/v1/topics/{topic_id}', topic_id=topic_id)
+        r = Route(
+            'POST',
+            '/api/v1/topics/{topic_id}'.format(topic_id=topic_id),
+        )
         payload = {}
 
         if message:
