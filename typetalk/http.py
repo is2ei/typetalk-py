@@ -40,7 +40,7 @@ class HTTPClient:
         self.__session = None  # filled in static_login
         self._locks = weakref.WeakValueDictionary()
         self.token = token
-        self.is_bot = False
+        self.is_bot = is_bot
 
         self.user_agent = 'typetalk-py'
 
