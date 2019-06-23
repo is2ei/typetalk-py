@@ -9,3 +9,4 @@ class Bot(Client):
     def __init__(self, token=None, run_async=False):
         super().__init__(token=token, run_async=run_async)
         self.is_bot = True
+        self.run_async = run_async
