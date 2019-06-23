@@ -8,6 +8,9 @@ import weakref
 # ThirdParty Imports
 import aiohttp
 
+# Internal Imports
+from .route import Route
+
 
 def to_json(obj):
     return json.dumps(obj, separators=(',', ':'), ensure_ascii=True)
@@ -17,19 +20,6 @@ async def json_or_text(response):
     if response.headers['content-type'] == 'application/json':
         return json.loads(text)
     return text
-
-
-class Route:
-    BASE = 'https://typetalk.com'
-
-    def __init__(self, method, path, **parameters):
-        self.method = method
-        self.path = path
-        self.url = '{}{}'.format(self.BASE, self.path)
-
-    @property
-    def bucket(self):
-        return '{0.method}:{0.path}'.format(self)
 
 
 class HTTPClient:
