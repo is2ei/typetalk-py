@@ -13,7 +13,8 @@ class Client:
             loop=loop,
             token=token,
             run_async=run_async,
-            is_bot=is_bot)
+            is_bot=is_bot
+        )
         self.http.loop = asyncio.get_event_loop()
 
     def post_message(self, topic_id, message):
