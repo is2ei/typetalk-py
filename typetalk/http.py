@@ -27,6 +27,10 @@ class Route:
         self.path = path
         url = '{}{}'.format(self.BASE, self.path)
 
+    @property
+    def bucket(self):
+        return '{0.method}:{0.path}'.format(self)
+
 
 class HTTPClient:
     """Represents an HTTP client sending HTTP requests to the Typetalk API."""
