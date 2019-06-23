@@ -25,7 +25,7 @@ class Route:
     def __init__(self, method, path, **parameters):
         self.method = method
         self.path = path
-        url = '{}{}'.format(self.BASE, self.path)
+        self.url = '{}{}'.format(self.BASE, self.path)
 
     @property
     def bucket(self):
