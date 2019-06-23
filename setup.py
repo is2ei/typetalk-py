@@ -12,7 +12,7 @@ with codecs.open(os.path.join(here, "README.md"), encoding="utf-8") as readme:
 
 setup(
     name="typetalk",
-    version="0.0.25",
+    version="1.0.0",
     packages=['typetalk'],
     description="Typetalk API client",
     long_description=long_description,
