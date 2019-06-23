@@ -75,3 +75,6 @@ class HTTPClient:
         async with self.__session.request(method, url, **kwargs) as r:
             data = await json_or_text(r)
             return data
+
+    def simple_login(self):
+        self.__session = aiohttp.ClientSession()

@@ -10,3 +10,4 @@ class Bot(Client):
         super().__init__(token=token, run_async=run_async)
         self.is_bot = True
         self.run_async = run_async
+        self.http.simple_login
