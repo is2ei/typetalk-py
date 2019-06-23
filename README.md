@@ -16,14 +16,13 @@ Usage
 import os
 import typetalk
 
-bot = typetalk.bot(token=os.environ['TYPETALK_TOKEN'])
+bot = typetalk.Bot(token=os.environ['TYPETALK_TOKEN'])
 
-response = bot.post_message(
-    topic_id='12345',
-    message="Hello, world!")
+res = bot.post_message(
+    topic_id=os.environ['TYPETALK_TOPIC_ID'],
+    message='Hello, world!'
 )
-assert response["ok"]
-assert response["post"]["message"] == "Hello world!"
+assert res['post']['message'] == 'Hello, world!'
 ```
 
 Links
