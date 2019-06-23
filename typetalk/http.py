@@ -71,10 +71,10 @@ class HTTPClient:
 
         kwargs['headers'] = headers
 
+        if self.__session is None:
+            self.__session = aiohttp.ClientSession(loop=self.loop)
+
         await lock.acquire()
         async with self.__session.request(method, url, **kwargs) as r:
             data = await json_or_text(r)
             return data
-
-    def simple_login(self):
-        self.__session = aiohttp.ClientSession(loop=self.loop)
