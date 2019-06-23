@@ -59,7 +59,7 @@ class HTTPClient:
             'User-Agent': self.user_agent,
         }
 
-        if token is not None:
+        if self.token is not None:
             if self.is_bot:
                 headers['X-Typetalk-Token'] = self.token
             else:
