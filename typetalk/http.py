@@ -27,10 +27,11 @@ class Route:
         self.path = path
         url = '{}{}'.format(self.BASE, self.path)
 
+
 class HTTPClient:
     """Represents an HTTP client sending HTTP requests to the Typetalk API."""
 
-    def __init__(self, loop=None, token=None):
+    def __init__(self, loop=None, token=None, run_async=False):
         self.loop = asyncio.get_event_loop() if loop is None else loop
         self.__session = None  # filled in static_login
         self._locks = weakref.WeakValueDictionary()
