@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from .http import Route, HTTPClient
-
+# Standard Imports
 import asyncio
+
+# Internal Imports
+from .http import Route, HTTPClient
 
 
 class Client:
@@ -12,6 +14,7 @@ class Client:
             token=token,
             run_async=run_async,
             is_bot=is_bot)
+        self.http.loop = asyncio.get_event_loop()
 
     def post_message(self, topic_id, message):
         r = Route('POST', '/api/v1/topics/{topic_id}', topic_id=topic_id)
